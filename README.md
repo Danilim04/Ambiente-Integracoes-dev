@@ -74,6 +74,7 @@ docker-compose exec back-azapfy bash
 
 Para qualquer dúvida, entre em contato comigo pelo Discord: daniel_4817
 
+Video Tutorial a respeito: https://drive.google.com/file/d/1-AvJpglt5Wtn9K3tUkoTnN7rbeIOdA0q/view?usp=sharing
 ---
 
 Este README foi organizado para garantir clareza e facilitar o entendimento de todos os passos necessários para configurar e utilizar o ambiente de desenvolvimento dockerizado.
