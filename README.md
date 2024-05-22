@@ -36,6 +36,7 @@ No diretório do projeto, organize os arquivos da seguinte forma:
 
 ### Passo 3: Configurar o Docker Compose
 Verifique e ajuste os argumentos no Docker Compose conforme necessário. Cada argumento é descrito abaixo:
+- `PHP_VERSION: '8.2-fpm'`: versão do PHP
 - `workDir: /var/www/`: Diretório onde o container espera encontrar o código.
 - `dirApp: ./app`: Local no host onde o código fica armazenado.
 - `entrypoint: docker-images/php/entrypoints/entrypoint-backDev3.sh`: Verifique se o arquivo de entrypoint existe neste caminho.
