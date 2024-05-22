@@ -1,0 +1,64 @@
+version: "3.9"
+services:
+
+  back-azapfy:
+    container_name: back-azapfy
+    restart: unless-stopped
+    build:
+      context: ./
+      dockerfile: docker-images/php/dockerfile
+      args:
+        PHP_VERSION: '7.4.33-fpm'
+        workDir: /var/www/
+        dirApp: ./app
+        entrypoint: docker-images/php/entrypoints/entrypoint-backDev3.sh
+        supervisordDir: ./docker/supervisord/supervisord-backDev3.conf
+    volumes:
+      - ./app:/var/www/
+      - /var/www/vendor/
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+        reservations:
+          memory: 100M
+    networks:
+      - azapNet
+
+  nginx:
+    container_name: Nginx-backdev3
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./app:/var/www/ # Mapear os codigos
+      - ./docker/nginx/:/etc/nginx/conf.d/ # Volume arquivo de Config
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+        reservations:
+          memory: 20M
+    networks:
+      - azapNet
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    networks:
+      - azapNet
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_auth_service:/data
+
+volumes:
+  redis_auth_service:
+
+
+networks:
+  azapNet:
+    driver: bridge
